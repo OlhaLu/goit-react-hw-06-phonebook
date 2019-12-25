@@ -30,7 +30,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ContactListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactListItem);

@@ -5,7 +5,7 @@ import ContactList from './ContactList';
 
 const App = () => (
   <div className="App">
-     <h1>Phonebook</h1>
+    <h1>Phonebook</h1>
     <ContactForm />
     <h2>Contacts</h2>
     <ContactFilter />

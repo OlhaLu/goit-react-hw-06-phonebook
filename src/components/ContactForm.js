@@ -34,7 +34,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(ContactForm);
+export default connect(null, mapDispatchToProps)(ContactForm);
