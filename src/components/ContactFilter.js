@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import contactsSelectors from '../redux/contacts/contactsSelectors';
-import * as contactActions from '../redux/contacts/contactActions';
+import T from 'prop-types';
 
 const ContactsFilter = ({ value, onChangeFilter }) => (
   <label>
@@ -14,16 +12,9 @@ const ContactsFilter = ({ value, onChangeFilter }) => (
   </label>
 );
 
-const mapStateToProps = state => {
-  return {
-    value: contactsSelectors.getFilter(state),
-  };
+ContactsFilter.propTypes = {
+  value: T.string.isRequired,
+  onChangeFilter: T.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onChangeFilter: value => dispatch(contactActions.changeFilter(value)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsFilter);
+export default ContactsFilter;

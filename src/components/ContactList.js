@@ -1,25 +1,30 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ContactListItem from './ContactListItem';
-import contactsSelectors from '../redux/contacts/contactsSelectors';
+import React from 'react';
+import T from 'prop-types';
 
-class ContactList extends Component {
-  render() {
-    const { contacts = [] } = this.props;
-    return (
-      <ul>
-        {contacts.map(({ id }) => (
-          <ContactListItem key={id} id={id} />
-        ))}
-      </ul>
-    );
-  }
-}
+const ContactList = ({ contacts, deleteContact }) => (
+  <ul>
+    {contacts.map(contact => (
+        <li key={contact.id}>
+        <span>{contact.name}</span>
+        <span>{contact.phone}</span>
+        <button type="button" onClick={() => deleteContact(contact.id)}>
+          Delete
+        </button>
+        </li>
+    ))}
+  </ul>
+)
 
-const mapStateToProps = state => {
-  return {
-    contacts: contactsSelectors.getFilteredContact(state),
-  };
+ContactList.propTypes = {
+  contacts: T.arrayOf(
+    T.shape({
+      id: T.string.isRequired,
+      name: T.string,
+      phone: T.string,
+    }),
+  ).isRequired,
+
+  deleteContact: T.func.isRequired,
 };
 
-export default connect(mapStateToProps)(ContactList);
+export default ContactList;

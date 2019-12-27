@@ -1,15 +1,10 @@
-import shortid from 'shortid';
 import * as contactTypes from './contactTypes';
 
-export const add = ({ name, number }) => {
+export const add = contacts => {
   return {
     type: contactTypes.ADD_CONTACT,
     payload: {
-      contacts: {
-        id: shortid.generate(),
-        name: name,
-        number: number,
-      },
+      contacts
     },
   };
 };
