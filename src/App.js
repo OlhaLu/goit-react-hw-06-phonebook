@@ -27,7 +27,7 @@ function App() {
   const [contacts, dispatch] = useReducer(contactReducer, []);
 
   useEffect(() => {
-    const contacts = localStorage.get('contacts');
+    const contacts = localStorage.getLocalStorage('contacts');
 
     if (contacts) {
       dispatch({ type: 'SET_STORAGE', 
@@ -39,7 +39,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.save('contacts', contacts);
+    localStorage.saveLocalStorage('contacts', contacts);
   }, [contacts]);
 
   const addContact = ({ name, number }) => {
