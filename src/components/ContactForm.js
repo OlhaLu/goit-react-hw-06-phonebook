@@ -25,15 +25,25 @@ const ContactForm = ({ addContact }) => {
     setPhone('');
   };
 
-    return (
-      <form onSubmit={onSubmit}>
-        <span>Name </span>
-        <input type="text" value={text} onChange={onChangeName} id={nameID.current}/>
-        <span>Phone number </span>
-        <input type="text" value={phone} onChange={onChangePhone} id={phoneID.current}/>
-        <button type="submit">Save contact</button>
-      </form>
-    );
+  return (
+    <form onSubmit={onSubmit}>
+      <span>Name </span>
+      <input
+        type="text"
+        value={text}
+        onChange={onChangeName}
+        id={nameID.current}
+      />
+      <span>Phone number </span>
+      <input
+        type="text"
+        value={phone}
+        onChange={onChangePhone}
+        id={phoneID.current}
+      />
+      <button type="submit">Save contact</button>
+    </form>
+  );
 };
 
 ContactForm.propTypes = {

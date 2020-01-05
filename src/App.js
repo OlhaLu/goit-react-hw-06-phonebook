@@ -6,7 +6,6 @@ import ContactForm from './components/ContactForm';
 import ContactFilter from './components/ContactFilter';
 import ContactList from './components/ContactList';
 
-
 const contactReducer = (state = [], { type, payload }) => {
   switch (type) {
     case 'ADD_CONTACT':
@@ -30,11 +29,12 @@ function App() {
     const contacts = localStorage.getLocalStorage('contacts');
 
     if (contacts) {
-      dispatch({ type: 'SET_STORAGE', 
-      payload: { 
-        contacts 
-      } 
-    });
+      dispatch({
+        type: 'SET_STORAGE',
+        payload: {
+          contacts,
+        },
+      });
     }
   }, []);
 
@@ -49,18 +49,20 @@ function App() {
       number,
     };
 
-    dispatch({ type: 'ADD_CONTACT', 
-    payload: { 
-      contact 
-    } 
-  });
+    dispatch({
+      type: 'ADD_CONTACT',
+      payload: {
+        contact,
+      },
+    });
   };
 
   const removeContact = contactId => {
-    dispatch({ type: 'REMOVE_CONTACT', 
-    payload: {
-       contactId 
-      } 
+    dispatch({
+      type: 'REMOVE_CONTACT',
+      payload: {
+        contactId,
+      },
     });
   };
 
@@ -84,8 +86,8 @@ function App() {
       <h2>Contacts</h2>
       <ContactFilter value={value} onChange={onChangeFilter} />
       <ContactList list={contacts} deleteContant={deleteContact} />
-      </ 
+    </>
   );
-};
+}
 
 export default App;
