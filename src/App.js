@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import shortid from 'shortid';
 import localStorage from './localStorage';
 
@@ -68,15 +68,14 @@ function App() {
 
   const [filter, setFilter] = useState('');
 
-  const changeFilter = e => setFilter(e.target.value);
+  const onChangeFilter = e => setFilter(e.target.value);
 
-  const getFilteredContact = createSelector(
-    [getContact, getFilter],
-    (contacts, filter) => {
-      return contacts.filter(contact =>
-        contact.text.toLowerCase().includes(filter.toLowerCase()),
-      );
-    },
+  const getFilteredContact = useMemo(
+    () =>
+      contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase()),
+      ),
+    [contacts, filter],
   );
 
   return (
@@ -84,8 +83,8 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} />
       <h2>Contacts</h2>
-      <ContactFilter value={value} onChange={onChangeFilter} />
-      <ContactList list={contacts} deleteContant={deleteContact} />
+      <ContactFilter value={filter} onChange={onChangeFilter} />
+      <ContactList list={getFilteredContact} deleteContant={removeContact} />
     </>
   );
 }

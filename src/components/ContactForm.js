@@ -6,14 +6,14 @@ const ContactForm = ({ addContact }) => {
   const [name, setName] = useState('');
   const nameID = useRef(shortid.generate());
 
-  onChangeName = e => {
+  const onChangeName = e => {
     setName({ text: e.target.value });
   };
 
   const [phone, setPhone] = useState('');
   const phoneID = useRef(shortid.generate());
 
-  onChangePhone = e => {
+  const onChangePhone = e => {
     setPhone({ text: e.target.value });
   };
 
@@ -30,7 +30,7 @@ const ContactForm = ({ addContact }) => {
       <span>Name </span>
       <input
         type="text"
-        value={text}
+        value={name}
         onChange={onChangeName}
         id={nameID.current}
       />

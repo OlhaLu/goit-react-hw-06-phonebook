@@ -1,4 +1,4 @@
-export const saveLocalStorage = (key, value) => {
+const saveLocalStorage = (key, value) => {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch (err) {
@@ -6,11 +6,16 @@ export const saveLocalStorage = (key, value) => {
   }
 };
 
-export const getLocalStorage = key => {
+const getLocalStorage = key => {
   try {
     const items = localStorage.getItem(key);
     return items ? JSON.parse(items) : null;
   } catch (err) {
     throw new Error();
   }
+};
+
+export default {
+  saveLocalStorage,
+  getLocalStorage,
 };
