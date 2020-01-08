@@ -10,19 +10,19 @@ const ContactForm = ({ addContact }) => {
     setName({ text: e.target.value });
   };
 
-  const [phone, setPhone] = useState('');
-  const phoneID = useRef(shortid.generate());
+  const [number, setNumber] = useState('');
+  const numberID = useRef(shortid.generate());
 
-  const onChangePhone = e => {
-    setPhone({ text: e.target.value });
+  const onChangeNumber = e => {
+    setNumber({ text: e.target.value });
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    addContact({ name, phone });
+    addContact({ name, number });
 
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -31,15 +31,17 @@ const ContactForm = ({ addContact }) => {
       <input
         type="text"
         value={name}
+        name="name"
         onChange={onChangeName}
         id={nameID.current}
       />
       <span>Phone number </span>
       <input
-        type="text"
-        value={phone}
-        onChange={onChangePhone}
-        id={phoneID.current}
+       type="number"
+        value={number}
+        name="number"
+        onChange={onChangeNumber}
+        id={numberID.current}
       />
       <button type="submit">Save contact</button>
     </form>

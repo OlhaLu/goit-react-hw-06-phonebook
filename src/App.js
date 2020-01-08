@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import shortid from 'shortid';
 import localStorage from './localStorage';
 
@@ -12,7 +12,7 @@ const contactReducer = (state = [], { type, payload }) => {
       return [...state, payload.contact];
 
     case 'REMOVE_CONTACT':
-      return state.filter(contact => contact.id !== payload.contactId);
+      return state.filter(contact => contact.id !== payload.id);
 
     case 'SET_STORAGE':
       return payload.contacts;
@@ -57,11 +57,11 @@ function App() {
     });
   };
 
-  const removeContact = contactId => {
+  const removeContact = id => {
     dispatch({
       type: 'REMOVE_CONTACT',
       payload: {
-        contactId,
+        id,
       },
     });
   };
@@ -74,12 +74,18 @@ function App() {
     contact.name.toLowerCase().includes(filter.toLowerCase()),
   );
 
+  // const contactsFilter = useMemo(() => {
+  //   console.log('Computing filtered contacts');
+  //   return  contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(filter.toLowerCase()));
+  // }, [contacts, filter]);
+
   return (
     <>
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} />
       <h2>Contacts</h2>
-      <ContactFilter filter={filter} onChangeFilter={onChangeFilter} />
+      <ContactFilter value={filter} onChange={onChangeFilter} />
       <ContactList filter={contactsFilter} removeContact={removeContact} />
     </>
   );

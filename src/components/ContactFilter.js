@@ -1,20 +1,20 @@
 import React from 'react';
 import T from 'prop-types';
 
-const ContactFilter = ({ filter, onChangeFilter }) => (
+const ContactFilter = ({ value, onChange }) => (
   <label>
     Filter contacts
     <input
       type="text"
-      value={filter}
-      onChange={e => onChangeFilter(e.target.value)}
+      value={value}
+      onChange={onChange}
     />
   </label>
 );
 
 ContactFilter.propTypes = {
-  filter: T.string.isRequired,
-  onChangeFilter: T.func.isRequired,
+  value: T.string.isRequired,
+  onChange: T.func.isRequired,
 };
 
 export default ContactFilter;
