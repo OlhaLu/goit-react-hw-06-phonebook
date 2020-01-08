@@ -1,9 +1,9 @@
 import React from 'react';
 import T from 'prop-types';
 
-const ContactList = ({ getFilteredContact, removeContact }) => (
+const ContactList = ({ filter, removeContact }) => (
   <ul>
-    {getFilteredContact.map(contact => (
+    {filter.map(contact => (
       <li key={contact.id}>
         <span>{contact.name}</span>
         <span>{contact.number}</span>
@@ -16,7 +16,7 @@ const ContactList = ({ getFilteredContact, removeContact }) => (
 );
 
 ContactList.propTypes = {
-  getFilteredContact: T.arrayOf(
+  filter: T.arrayOf(
     T.shape({
       id: T.string.isRequired,
       name: T.string,
