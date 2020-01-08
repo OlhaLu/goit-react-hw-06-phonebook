@@ -37,7 +37,7 @@ const ContactForm = ({ addContact }) => {
       />
       <span>Phone number </span>
       <input
-       type="number"
+        type="number"
         value={number}
         name="number"
         onChange={onChangeNumber}
