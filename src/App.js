@@ -27,7 +27,6 @@ function App() {
 
   useEffect(() => {
     const contacts = localStorage.getLocalStorage('contacts');
-
     if (contacts) {
       dispatch({
         type: 'SET_STORAGE',
@@ -55,6 +54,18 @@ function App() {
         contact,
       },
     });
+
+    if (!contact.name || !contact.number) {
+      alert('Please input name and number');
+      return;
+    }
+
+    const findUniqName = contacts.find(user => user.name === contact.name);
+
+    if (findUniqName) {
+      alert(`${contact.name} is alredy in contacts`);
+      return;
+    }
   };
 
   const removeContact = id => {
@@ -70,15 +81,11 @@ function App() {
 
   const onChangeFilter = e => setFilter(e.target.value);
 
-  const contactsFilter = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase()),
-  );
-
-  // const contactsFilter = useMemo(() => {
-  //   console.log('Computing filtered contacts');
-  //   return  contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase()));
-  // }, [contacts, filter]);
+  const contactsFilter = useMemo(() => {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
+    );
+  }, [contacts, filter]);
 
   return (
     <>
@@ -86,7 +93,7 @@ function App() {
       <ContactForm addContact={addContact} />
       <h2>Contacts</h2>
       <ContactFilter value={filter} onChange={onChangeFilter} />
-      <ContactList filter={contactsFilter} removeContact={removeContact} />
+      <ContactList contacts={contactsFilter} removeContact={removeContact} />
     </>
   );
 }

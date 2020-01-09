@@ -1,12 +1,12 @@
 import React from 'react';
 import T from 'prop-types';
 
-const ContactList = ({ filter, removeContact }) => (
+const ContactList = ({ contacts, removeContact }) => (
   <ul>
-    {filter.map(contact => (
+    {contacts.map(contact => (
       <li key={contact.id}>
-        <span>{contact.name}</span>
-        <span>{contact.number}</span>
+        <span>Name : {contact.name}</span>
+        <span>Number : {contact.number}</span>
         <button type="button" onClick={() => removeContact(contact.id)}>
           Delete
         </button>
@@ -16,7 +16,7 @@ const ContactList = ({ filter, removeContact }) => (
 );
 
 ContactList.propTypes = {
-  filter: T.arrayOf(
+  contacts: T.arrayOf(
     T.shape({
       id: T.string.isRequired,
       name: T.string,

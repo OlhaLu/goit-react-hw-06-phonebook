@@ -21,16 +21,26 @@ const ContactForm = ({ addContact }) => {
     e.preventDefault();
     addContact({ name, number });
 
+    // if (!name || !number) {
+    //   alert('Please input name and number');
+    //   return;
+    // }
+
+    // if (name === name) {
+    //   alert(`${name} is alredy in contacts`);
+    //   return;
+    // }
+
     setName('');
     setNumber('');
   };
 
   return (
     <form onSubmit={onSubmit}>
-      <span>Name </span>
+      <span>Name: </span>
       <input
         type="text"
-        value={name}
+        // value={name}
         name="name"
         onChange={onChangeName}
         id={nameID.current}
@@ -38,12 +48,12 @@ const ContactForm = ({ addContact }) => {
       <span>Phone number </span>
       <input
         type="number"
-        value={number}
+        // value={number}
         name="number"
         onChange={onChangeNumber}
         id={numberID.current}
       />
-      <button type="submit">Save contact</button>
+      <button type="submit">Add contact</button>
     </form>
   );
 };

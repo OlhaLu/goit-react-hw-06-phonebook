@@ -30,17 +30,17 @@ h4 {
   color: rgb(45, 6, 107);
 }
 
-.addContactForm {
-  float: left;
-  margin-right: 30px;
-}
-
-.addContactForm input {
+input {
   display: block;
   margin: 0 0 15px 0;
   padding: 10px;
   width: 250px;
   border: 1px solid #ccc;
+}
+
+.addContactForm {
+  float: left;
+  margin-right: 30px;
 }
 
 .phoneBookList {
