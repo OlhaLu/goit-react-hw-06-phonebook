@@ -7,29 +7,21 @@ const ContactForm = ({ addContact }) => {
   const nameID = useRef(shortid.generate());
 
   const onChangeName = e => {
-    setName({ text: e.target.value });
+    const name = e.target.value;
+    setName(name);
   };
 
   const [number, setNumber] = useState('');
   const numberID = useRef(shortid.generate());
 
   const onChangeNumber = e => {
-    setNumber({ text: e.target.value });
+    const number = e.target.value;
+    setNumber(number);
   };
 
   const onSubmit = e => {
     e.preventDefault();
     addContact({ name, number });
-
-    // if (!name || !number) {
-    //   alert('Please input name and number');
-    //   return;
-    // }
-
-    // if (name === name) {
-    //   alert(`${name} is alredy in contacts`);
-    //   return;
-    // }
 
     setName('');
     setNumber('');
@@ -40,18 +32,19 @@ const ContactForm = ({ addContact }) => {
       <span>Name: </span>
       <input
         type="text"
-        // value={name}
         name="name"
         onChange={onChangeName}
         id={nameID.current}
+        value={name}
       />
-      <span>Phone number </span>
+
+      <span>Phone number: </span>
       <input
         type="number"
-        // value={number}
         name="number"
         onChange={onChangeNumber}
         id={numberID.current}
+        value={number}
       />
       <button type="submit">Add contact</button>
     </form>
