@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import shortid from 'shortid';
 import localStorage from './localStorage';
+import CreateTask from './components/CreateTask';
+import TaskList from './components/TaskList';
 
-import ContactForm from './components/ContactForm';
-import ContactFilter from './components/ContactFilter';
-import ContactList from './components/ContactList';
-
-const contactReducer = (state = [], { type, payload }) => {
+const taskReducer = (state = [], { type, payload }) => {
   switch (type) {
-    case 'ADD_CONTACT':
-      return [...state, payload.contact];
+    case 'ADD_TASK':
+      return [...state, payload.todo];
 
-    case 'REMOVE_CONTACT':
-      return state.filter(contact => contact.id !== payload.id);
+    case 'REMOVE_TASK':
+      return state.filter(todo => todo.id !== payload.id);
 
     case 'SET_STORAGE':
-      return payload.contacts;
+      return payload.todos;
 
     default:
       return state;
@@ -23,77 +21,61 @@ const contactReducer = (state = [], { type, payload }) => {
 };
 
 function App() {
-  const [contacts, dispatch] = useReducer(contactReducer, []);
+  const [todos, dispatch] = useReducer(taskReducer, []);
 
   useEffect(() => {
-    const contacts = localStorage.getLocalStorage('contacts');
-    if (contacts) {
+    const todos = localStorage.getLocalStorage('todos');
+    if (todos) {
       dispatch({
         type: 'SET_STORAGE',
         payload: {
-          contacts,
+          todos,
         },
       });
     }
   }, []);
 
   useEffect(() => {
-    localStorage.saveLocalStorage('contacts', contacts);
-  }, [contacts]);
+    localStorage.saveLocalStorage('todos', todos);
+  }, [todos]);
 
-  const addContact = ({ name, number }) => {
-    const contact = {
+  const addTask = ({ name }) => {
+    const todo = {
       id: shortid.generate(),
       name,
-      number,
     };
 
     dispatch({
-      type: 'ADD_CONTACT',
+      type: 'ADD_TASK',
       payload: {
-        contact,
+        todo,
       },
     });
-
-    if (!contact.name || !contact.number) {
-      alert('Please input name and number');
-      return;
-    }
-
-    const findUniqName = contacts.find(user => user.name === contact.name);
-
-    if (findUniqName) {
-      alert(`${contact.name} is alredy in contacts`);
-      return;
-    }
   };
 
-  const removeContact = id => {
+  const removeTask = id => {
     dispatch({
-      type: 'REMOVE_CONTACT',
+      type: 'REMOVE_TASK',
       payload: {
         id,
       },
     });
   };
 
-  const [filter, setFilter] = useState('');
+  const [filter] = useState('');
 
-  const onChangeFilter = e => setFilter(e.target.value);
-
-  const contactsFilter = useMemo(() => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
+  const todosFilter = useMemo(() => {
+    return todos.filter(todo =>
+      todo.name.toLowerCase().includes(filter.toLowerCase()),
     );
-  }, [contacts, filter]);
+  }, [todos, filter]);
 
   return (
     <>
-      <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} />
-      <h2>Contacts</h2>
-      <ContactFilter value={filter} onChange={onChangeFilter} />
-      <ContactList contacts={contactsFilter} removeContact={removeContact} />
+      <h1>Add Items</h1>
+      <CreateTask addTask={addTask} />
+      <h2>To Do List</h2>
+      <TaskList todos={todosFilter} removeTask={removeTask} />
     </>
   );
 }
