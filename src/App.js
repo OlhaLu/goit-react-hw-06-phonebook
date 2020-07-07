@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import shortid from 'shortid';
 import localStorage from './localStorage';
-
 import ContactForm from './components/ContactForm';
 import ContactFilter from './components/ContactFilter';
 import ContactList from './components/ContactList';
